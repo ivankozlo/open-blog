@@ -1,0 +1,18 @@
+<h1>All categories (<%= Category.all.length %>)</h1>
+<%= will_paginate(@categories, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, class: 'justify-content-center') %>
+<ul class="list-group">
+  <% @categories.each do |category| %>
+    <li class="list-group-item d-flex justify-content-between">
+      <div class="">
+        <%= link_to category.name, category_path(category) %>
+        <small class="ml-2"><%= pluralize(category.articles.count, "article") %></small>
+      </div>
+      <% if signed_in? && current_user.admin? %>
+        <div class="btn-group">
+          <%= link_to "Edit", edit_category_path(category), class: "btn btn-primary btn-sm" %>
+          <%= link_to "Delete", category_path(category), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger btn-sm" %>
+        </div>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

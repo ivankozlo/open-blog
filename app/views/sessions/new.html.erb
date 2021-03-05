@@ -1,0 +1,13 @@
+<h1>Sign in to Open blog</h1>
+<%= form_for :session, :url => signin_path do |f| %>
+  <div class="mb-3">
+    <%= f.label :email, :class => "form-label" %>
+    <%= f.email_field :email, :class => "form-control", placeholder: "Email" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :password, :class => "form-label" %>
+    <%= f.password_field :password, :class => "form-control", placeholder: "Enter password" %>
+  </div>
+  <%= f.submit "Sign in", :class => "btn btn-primary" %>
+  <%= link_to "Cancel", root_path, :class => "btn btn-secondary" %>
+<% end %>

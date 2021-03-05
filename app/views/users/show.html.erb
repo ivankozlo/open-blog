@@ -1,0 +1,25 @@
+<h1>Profile - <%= @user.username %></h1>
+
+<div class="media mb-3">
+  <%= gravatar_for(@user) %>
+  <div class="media-body">
+    <h5 class="mt-0 d-flex justify-content-between">
+      <p><%= @user.username %></p>
+      <small class="text-muted">Member since: <%= @user.created_at.strftime("%B %d, %Y") %></small>
+    </h5>
+    <div class="d-flex">
+      <div><%= @user.email %></div>
+      <% if signed_in? && current_user == @user %>
+        <div class="ml-auto">
+          <%= link_to "Edit profile", edit_user_path(@user) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<h4><%= @user.username %>'s articles (<%= @user.articles.length %>)</h4>
+<div class="d-flex justify-content-center">
+  <%= will_paginate(@user_articles, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, class: 'justify-content-center') %>
+</div>
+<%= render 'articles/article', obj: @user_articles %>

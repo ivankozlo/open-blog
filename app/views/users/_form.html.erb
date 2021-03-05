@@ -1,0 +1,22 @@
+<%= render 'shared/errors', obj: @user %>
+
+<%= form_for @user do |f| %>
+  <div class="mb-3">
+    <%= f.label :username, :class => "form-label" %>
+    <%= f.text_field :username, :class => "form-control", autofocus: true, placeholder: "Username" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :email, :class => "form-label" %>
+    <%= f.email_field :email, :class => "form-control", placeholder: "Email" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :password, :class => "form-label" %>
+    <%= f.password_field :password, :class => "form-control", placeholder: "Enter password" %>
+  </div>
+  <%= f.submit (@user.new_record? ? "Sign up" : "Update"), :class => "btn btn-primary" %>
+  <% if signed_in? %>
+    <%= link_to "Cancel", user_path(@user), :class => "btn btn-secondary" %>
+  <% else %>
+    <%= link_to "Sign in", signin_path, :class => "btn btn-success" %>
+  <% end %>
+<% end %>

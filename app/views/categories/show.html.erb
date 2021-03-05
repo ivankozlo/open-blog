@@ -1,0 +1,14 @@
+<h1 class="d-flex">
+  <p><%= @category.name %> (<%= pluralize(@category.articles.count, "article") %>)</p>
+  <% if signed_in? && current_user.admin? %>
+    <div class="ml-auto">
+      <%= link_to "Edit", edit_category_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</h1>
+<div class="d-flex justify-content-center">
+  <%= will_paginate(@category_articles, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, class: 'justify-content-center') %>
+</div>
+<%= render 'articles/article', obj: @category.articles %>
+
+<%= link_to "Back to articles", articles_path, class: "btn btn-secondary mt-2" %>
