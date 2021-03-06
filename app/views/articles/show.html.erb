@@ -1,17 +1,23 @@
 <h2 class="text-center"><%= @article.title %></h2>
 
-<div class="card">
+<div class="card article-full">
   <div class="card-body">
     <h5 class="card-title">Author: <%= link_to @article.user.username, user_path(@article.user) %></h5>
     <h6 class="card-subtitle mb-2 text-muted"><%= @article.created_at.strftime("%H:%M:%S, %B %d, %Y") %></h6>
-    <p class="card-text"><%= simple_format(@article.description) %></p>
+    <div class="card-content">
+      <div class="card-content-detail">
+        <%= simple_format(@article.description) %>
+      </div>
+    </div>
     <% if @article.categories.any? %>
-      <p>Categories: <%= render @article.categories %></p>
+      <p><%= render @article.categories %></p>
+    <% else %>
+      <p><span class="badge badge-secondary">Uncategorized</span></p>
     <% end %>
     <% if signed_in? && @article.user == current_user %>
       <%= link_to "Edit", edit_article_path, :class => "btn btn-primary btn-sm" %>
       <%= link_to "Delete", article_path, method: :delete, data: {confirm: "are you sure you want to delete the article?"}, :class => "btn btn-danger btn-sm" %>
-      <%= link_to "Back", articles_path, :class => "btn btn-secondary btn-sm" %>
     <% end %>
+    <%= link_to "Back", articles_path, :class => "btn btn-secondary btn-sm" %>
   </div>
 </div>
